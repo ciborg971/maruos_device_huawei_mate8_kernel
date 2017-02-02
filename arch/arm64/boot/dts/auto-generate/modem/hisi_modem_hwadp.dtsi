@@ -1,0 +1,100 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/*                  提供给上层
+
+          +---------------------+-------+ --> 0xE0440000
+          |   CICOM0            | 0x1000|
+          +---------------------+-------+ --> 0xE0450000
+          |   CICOM1            | 0x1000|
+          +---------------------+-------+ --> xxxxxxxxxx
+          |   HDLC              | 0x1000|
+          +---------------------+-------+ --> 0xE0471000
+          |   UPACC             | 0x1000|
+          +---------------------+-------+ -->
+
+*/
+
+/{
+	hwadp{
+		compatible = "hisilicon,hardware_adapt";
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+		
+		hi_cicom0_ul:cicom0@E0440000 {
+			compatible = "hisilicon,hi_cicom0_ul";
+			reg = <0x0 0xE0440000 0x0 0x10000>;
+			interrupts = <0 51 4>;
+			ip_type = <1>;
+			int_type = <8>;
+			status = "okay";
+		};
+
+		hi_cicom0_dl:cicom0@0 {
+			compatible = "hisilicon,hi_cicom0_dl";
+			reg = <0x0 0x00000000 0x0 0x0000>;
+			interrupts = <0 52 4>;
+			ip_type = <0xFFFF>;
+			int_type = <9>;
+			status = "okay";
+		};
+
+		hi_cicom1_ul:cicom1@E0450000 {
+			compatible = "hisilicon,hi_cicom1_ul";
+			reg = <0x0 0xE0450000 0x0 0x10000>;
+			interrupts = <0 53 4>;
+			ip_type = <2>;
+			int_type = <10>;
+			status = "okay";
+		};
+
+		hi_cicom1_dl:cicom1@0 {
+			compatible = "hisilicon,hi_cicom1_dl";
+			reg = <0x0 0x00000000 0x0 0x0000>;
+			interrupts = <0 54 4>;
+			ip_type = <0xFFFF>;
+			int_type = <11>;
+			status = "okay";
+		};
+
+		hi_upacc_dsp:upacc@E0471000 {
+			compatible = "hisilicon,hi_upacc_dsp";
+			reg = <0x0 0xE0471000 0x0 0x1000>;
+			interrupts = <0 38 4>;
+			ip_type = <30>;
+			int_type = <35>;
+			status = "okay";
+		};
+
+		hi_upacc_arm:upacc@0 {
+			compatible = "hisilicon,hi_upacc_arm";
+			reg = <0x0 0x00000000 0x0 0x0000>;
+			interrupts = <0 55 4>;
+			ip_type = <0xFFFF>;
+			int_type = <46>;
+			status = "okay";
+		};
+		
+		rtc_int:rtc@0 {
+			compatible = "hisilicon,rtc_int";
+			reg        = <0x0 0x00000000 0x0 0x0000>;
+			interrupts = <0 36 4>;
+			ip_type    = <0xFFFF>;
+			int_type   = <0>;
+			status     = "okay";
+		};
+
+		uicc_int:uicc@0 {
+			compatible = "hisilicon,uicc_int";
+			reg        = <0x0 0x00000000 0x0 0x0000>;
+			interrupts = <0 39 4>;
+			ip_type    = <0xFFFF>;
+			int_type   = <3>;
+			status     = "okay";
+		};
+	};
+};

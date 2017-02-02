@@ -1,0 +1,1 @@
+cmd_arch/x86/syscalls/../include/generated/uapi/asm/unistd_64.h := /bin/sh '/home/crylog/Downloads/1111/Kernel_Opensource/kernel/arch/x86/syscalls/syscallhdr.sh' '/home/crylog/Downloads/1111/Kernel_Opensource/kernel/arch/x86/syscalls/syscall_64.tbl' 'arch/x86/syscalls/../include/generated/uapi/asm/unistd_64.h' 'common,64' '' ''

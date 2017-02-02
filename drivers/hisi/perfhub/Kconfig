@@ -1,0 +1,4 @@
+config HI3650_PERFHUB
+       bool "hisi hi3650 perfhub"
+       depends on ARCH_HI3650
+       default y

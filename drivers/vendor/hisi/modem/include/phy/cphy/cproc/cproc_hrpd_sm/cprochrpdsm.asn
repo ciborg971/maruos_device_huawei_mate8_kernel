@@ -1,0 +1,342 @@
+--/*********************************************************************************/
+--/* FileName:      cprochrpdsm.asn                                                */
+--/* Description:   H2ASN TOOLS Generate ASN.1 file                                */
+--/* CopyRight:     Huawei Technologies Co., Ltd.                                  */
+--/* Created By:                                                                   */
+--/* HISTORY VER:   NULL                                                           */
+--/* VERSION:       1.0                                                            */
+--/* Create Time:   2015.8.4 6:33:49                                               */
+--/* Create Option: H2ASN C:\Users\j73114\AppData\Local\Temp\Huawei\Daisy\CPROCHRPDSM_ASNfile\cprochrpdsm.h C:\Users\j73114\AppData\Local\Temp\Huawei\Daisy\CPROCHRPDSM_ASNfile\cprochrpdsm.asn*/
+--/*********************************************************************************/
+                                                                                   
+--ROOT    : Cprochrpdsm-definitions.Cprochrpdsm-MSG                                              
+--PROTOCOL: Cprochrpdsm                                                                     
+--ENDIAN  : LITTLE                                                                   
+--BOUNDARY: ALIGN                                                                    
+--THREAD  : MULTI                                                                    
+                                                                                     
+Cprochrpdsm-definitions DEFINITIONS ::=                                                             
+BEGIN                                                                                
+                                                                                   
+VOS-UINT8  ::= <V,V|LEN-8>INTEGER(0..255) 
+
+VOS-UINT16 ::= <V,V|LEN-16>INTEGER(0..65535) 
+
+VOS-INT16  ::= <V,V|LEN-16>INTEGER(-32768..32767) 
+
+VOS-UINT32 ::= <V,V|LEN-32>INTEGER(0..4294967295) 
+
+VOS-MSG-HEADER  ::= <V>SEQUENCE 
+{ 
+    ulSenderCpuId    VOS-UINT32, 
+    ulSenderPid      VOS-UINT32, 
+    ulReceiverCpuId  VOS-UINT32, 
+    ulReceiverPid    VOS-UINT32 
+} 
+
+VOS-RATMODE-ENUM    ::= <V,V|LEN-32> ENUMERATED  
+{ 
+    vOS-RATMODE-GSM(0), 
+    vOS-RATMODE-WCDMA(1), 
+    vOS-RATMODE-LTE(2), 
+    vOS-RATMODE-TDS(3), 
+    vOS-RATMODE-1X(4), 
+    vOS-RATMODE-EVDO(5), 
+    vOS-RATMODE-BUTT(6) 
+} 
+
+MODEM-ID-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    mODEM-ID-BUTT(0) 
+} 
+
+MsgBlock    ::= <V> SEQUENCE  
+{ 
+     
+    dummy    <V>SEQUENCE(SIZE(4)) OF VOS-UINT8 
+} 
+
+CPROC-HRPD-WORKMODE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-WORKMODE-MASTER(0), 
+    cPROC-HRPD-WORKMODE-SLAVE(1), 
+    cPROC-HRPD-WORKMODE-BUTT(2) 
+} 
+
+CPROC-HRPD-CHANNEL-RECORD-STRU    ::= <V> SEQUENCE  
+{ 
+    usBandClass    VOS-UINT16 , 
+ 
+    usChannelNumber    VOS-UINT16  
+} 
+
+CPROCHRPDSM-MSG-TYPE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    iD-CAS-CPROC-HRPD-MEAS-PILOTSET-REQ(17920),    --/* -H2ASN-MsgChoice CAS-CPROC-HRPD-MEAS-PILOTSET-REQ-STRU */ 
+    iD-CPROC-CAS-HRPD-MEAS-PILOTSET-CNF(17921),    --/* -H2ASN-MsgChoice CPROC-CAS-HRPD-MEAS-PILOTSET-CNF-STRU */ 
+    iD-CPROC-CAS-HRPD-MEAS-PILOTSET-IND(17922),    --/* -H2ASN-MsgChoice CPROC-CAS-HRPD-MEAS-PILOTSET-IND-STRU */ 
+    iD-CPROCHRPDSM-MSG-TYPE-ENUM-BUTT(17923) 
+} 
+
+CPROCHRPDSM-MSG-TYPE-ENUM-CHOICE-STRU    ::= <V|WHEN>CHOICE 
+{ 
+   struCAS-CPROC-HRPD-MEAS-PILOTSET-REQ-STRU   CAS-CPROC-HRPD-MEAS-PILOTSET-REQ-STRU   WHEN(usChoice1.v==17920), 
+   struCPROC-CAS-HRPD-MEAS-PILOTSET-CNF-STRU   CPROC-CAS-HRPD-MEAS-PILOTSET-CNF-STRU   WHEN(usChoice1.v==17921), 
+   struCPROC-CAS-HRPD-MEAS-PILOTSET-IND-STRU   CPROC-CAS-HRPD-MEAS-PILOTSET-IND-STRU   WHEN(usChoice1.v==17922) 
+} 
+
+CPROC-HRPD-MEASURE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-MEASURE-PERIODICALLY(0), 
+    cPROC-HRPD-MEASURE-ONCE(1), 
+    cPROC-HRPD-MEASURE-BUTT(2) 
+} 
+
+CPROC-HRPD-CDMA-TIME-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-CDMA-TIME-SYNC(0), 
+    cPROC-HRPD-CDMA-TIME-ASYNC(1), 
+    cPROC-HRPD-CDMA-TIME-BUTT(2) 
+} 
+
+CPROC-HRPD-LTE-CDMA-TIME-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-LTE-CDMA-TIME-PRESENT(0), 
+    cPROC-HRPD-LTE-CDMA-TIME-NOT-PRESENT(1), 
+    cPROC-HRPD-LTE-CDMA-TIME-BUTT(2) 
+} 
+
+CPROC-HRPD-WINDOW-SIZE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-WINDOW-SIZE-4(0), 
+    cPROC-HRPD-WINDOW-SIZE-6(1), 
+    cPROC-HRPD-WINDOW-SIZE-8(2), 
+    cPROC-HRPD-WINDOW-SIZE-10(3), 
+    cPROC-HRPD-WINDOW-SIZE-14(4), 
+    cPROC-HRPD-WINDOW-SIZE-20(5), 
+    cPROC-HRPD-WINDOW-SIZE-28(6), 
+    cPROC-HRPD-WINDOW-SIZE-40(7), 
+    cPROC-HRPD-WINDOW-SIZE-60(8), 
+    cPROC-HRPD-WINDOW-SIZE-80(9), 
+    cPROC-HRPD-WINDOW-SIZE-100(10), 
+    cPROC-HRPD-WINDOW-SIZE-130(11), 
+    cPROC-HRPD-WINDOW-SIZE-160(12), 
+    cPROC-HRPD-WINDOW-SIZE-226(13), 
+    cPROC-HRPD-WINDOW-SIZE-320(14), 
+    cPROC-HRPD-WINDOW-SIZE-452(15), 
+    cPROC-HRPD-USE-DEFAULT(16), 
+    cPROC-HRPD-WINDOW-SIZE-BUTT(17) 
+} 
+
+CPROC-HRPD-WINDOW-OFFSET-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-WINDOW-OFFSET-NO(0), 
+    cPROC-HRPD-WINDOW-OFFSET-HALF(1), 
+    cPROC-HRPD-WINDOW-OFFSET-ONE(2), 
+    cPROC-HRPD-WINDOW-OFFSET-THREE-HALF(3), 
+    cPROC-HRPD-WINDOW-OFFSET-HALF-NEG(4), 
+    cPROC-HRPD-WINDOW-OFFSET-ONE-NEG(5), 
+    cPROC-HRPD-WINDOW-OFFSET-THREE-HALF-NEG(6), 
+    cPROC-HRPD-WINDOW-OFFSET-BUTT(7) 
+} 
+
+CPROC-HRPD-PILOT-STRGTH-PARA-STRU    ::= <V> SEQUENCE  
+{ 
+    stFreq    CPROC-HRPD-CHANNEL-RECORD-STRU, 
+ 
+    --/**< Frequency */ 
+    usPilotPN    VOS-UINT16, 
+ 
+    --/**< Pilot PN */ 
+    sStrength    VOS-INT16, 
+ 
+    --/**< Strength */ 
+    ulPnPhase    VOS-UINT32, 
+ 
+    --/**< PN Phase,in uint of 1 16 chips */ 
+    sRelativeStrength    VOS-INT16, 
+ 
+    --/**< Sum of pilot strength of AS pilots weaker than this pilot. Only given for AS pilots. -8 to -200 ( 0.125dB resolution ) or CPROC-HRPD-NOT-VALID */ 
+    sHrpdSinr    VOS-INT16 
+    --/**< [-25,-1] or CPROC-HRPD-NOT-VALID. Only given for AS pilots. */ 
+} 
+
+CPROC-HRPD-NEIGHBOR-SET-PARA-STRU    ::= <V> SEQUENCE  
+{ 
+    usPilotPN    VOS-UINT16, 
+ 
+    --/**< Pilot PN */ 
+    usSearchWindowSize    CPROC-HRPD-WINDOW-SIZE-ENUM, 
+ 
+    --/**< Window size, or CPROC-HRPD-WINDOW-SIZE-DEFAULT = CPROC-HRPD-USE-DEFAULT */ 
+    usSearchWindowOffset    CPROC-HRPD-WINDOW-OFFSET-ENUM, 
+ 
+    --/**< Window offset relative serving cell. If no offset is known it is set to CPROC-HRPD-WINDOW-OFFSET-NO */ 
+     
+    aucReserve    <V>SEQUENCE(SIZE(2)) OF VOS-UINT8, 
+ 
+    --/**< 32 bit alignment */ 
+    stFreq    CPROC-HRPD-CHANNEL-RECORD-STRU 
+    --/**< Frequency */ 
+} 
+
+CPROC-HRPD-SEARCH-PARAMETERS-STRU    ::= <V> SEQUENCE  
+{ 
+    usPilotIncrement    VOS-UINT16, 
+ 
+    --/**< PN sequence increment in units of 64 chips */ 
+    usSearchWindowActive    CPROC-HRPD-WINDOW-SIZE-ENUM, 
+ 
+    --/**< Search window size for the Active Set and Candidate Set. */ 
+    usSearchWindowRemaining    CPROC-HRPD-WINDOW-SIZE-ENUM, 
+ 
+    --/**< Search window size for the Remaining Set. */ 
+    usReserved    VOS-UINT16 
+    --/**< 32-bit alignment. */ 
+} 
+
+CPROC-HRPD-CDMA-TIME-STRU    ::= <V> SEQUENCE  
+{ 
+    ucSystemTimeType    CPROC-HRPD-CDMA-TIME-ENUM, 
+ 
+    --/**< Sync or Async */ 
+     
+    aucReserve    <V>SEQUENCE(SIZE(2)) OF VOS-UINT8, 
+ 
+    --/**< 32 bit alignment */ 
+    ulSystemTimeLow32BitsValue    VOS-UINT32, 
+ 
+    --/**< The lower 32 bits value of system time */ 
+    ulSystemTimeHighBitsValue    VOS-UINT32 
+    --/**< The higher bits value of system time */ 
+} 
+
+CPROC-HRPD-LTE-CDMA-TIME-STRU    ::= <V> SEQUENCE  
+{ 
+    stSystemTimeInfoCDMA    CPROC-HRPD-CDMA-TIME-STRU, 
+ 
+    --/**< absolute time in the current cell */ 
+    usLteSfn    VOS-UINT16, 
+ 
+    --/**< SFN boundary at or after the ending boundary of the SI-Window in which SystemInformationBlockType8 is transmitted */ 
+     
+    aucReserve    <V>SEQUENCE(SIZE(2)) OF VOS-UINT8, 
+ 
+    --/**< 32 bit alignment */ 
+     
+    aulTimeStamp    <V>SEQUENCE(SIZE(2)) OF VOS-UINT32 
+    --/**< TimeStamp[0] is Lte's timing;TimeStamp[1] is  32k comm timing */ 
+} 
+
+CAS-CPROC-HRPD-MEAS-PILOTSET-REQ-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDSM-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    ucNumNeighborList    VOS-UINT8, 
+ 
+    --/**< size of neighbor list 1..CPROC-HRPD-MAX-NEIGHBOR-NUM */ 
+     
+    aucReserve    <V>SEQUENCE(SIZE(3)) OF VOS-UINT8, 
+ 
+    --/**< 32 bit alginment */ 
+    enTimePresent    CPROC-HRPD-LTE-CDMA-TIME-ENUM, 
+ 
+    --/**< valid flag for stLteCdmaTime */ 
+    enMeasType    CPROC-HRPD-MEASURE-ENUM, 
+ 
+    --/**< one shot or periodic */ 
+     
+    astNeighborList    <V>SEQUENCE(SIZE(44)) OF CPROC-HRPD-NEIGHBOR-SET-PARA-STRU, 
+ 
+    --/**< Neighbor list */ 
+    stSearchParameters    CPROC-HRPD-SEARCH-PARAMETERS-STRU, 
+ 
+    --/**< Pilot Inc and window sizes */ 
+    stLteCdmaTime    CPROC-HRPD-LTE-CDMA-TIME-STRU 
+    --/**< synchronization between LTE and CDMA time */ 
+} 
+
+CPROC-CAS-HRPD-MEAS-PILOTSET-CNF-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDSM-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    ulResult    VOS-UINT32 
+    --/**< 0-success, others-failure */ 
+} 
+
+CPROC-CAS-HRPD-MEAS-PILOTSET-IND-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDSM-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    ulTimeRefMs    VOS-UINT32, 
+ 
+    --/**< 0..14399999, resolution 1ms. System time mode 14400000, CS0022 TIME-REF-MS */ 
+    sMobSysTOffset    VOS-INT16, 
+ 
+    --/**< -512..511.9375, resolution 1 16chip CS0022 MOB-SYS-T-OFFSET */ 
+    usReserve    VOS-UINT16, 
+ 
+    --/**< 32 bit alignment */ 
+     
+    astPilotStrgthList    <V>SEQUENCE(SIZE(44)) OF CPROC-HRPD-PILOT-STRGTH-PARA-STRU, 
+ 
+    --/**< Measurement results */ 
+    usRefPN    VOS-UINT16, 
+ 
+    --/**< 0..511, PNOffset of the reference pilot */ 
+    ucNum-pilots    VOS-UINT8, 
+ 
+    --/**< number of pilots in stPilotStrgthList 1..CPROC-HRPD-MAX-NEIGHBOR-NUM */ 
+     
+    aucReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT8, 
+ 
+    --/**< 32 bit alignment */ 
+    sTotalAsEc    VOS-INT16, 
+ 
+    --/**< Range TBD, total Ec of the active set. Valid in TCH only. */ 
+    enMeasType    CPROC-HRPD-MEASURE-ENUM, 
+ 
+    --/**< one shot or periodic */ 
+    sServFreqRssi    VOS-INT16, 
+ 
+    --/**< -880..0, resolution 0.125dBm. Measured RSSI on the serving frequency or CPROC-HRPD-NOT-VALID */ 
+     
+    aucReserve1    <V>SEQUENCE(SIZE(2)) OF VOS-UINT8 
+    --/**< 32 bit alignment */ 
+} 
+
+Cprochrpdsm-msg-data    ::= <LV,L|LEN-32> SEQUENCE  
+{ 
+    enMsgId    <V,V|LEN-16>CPROCHRPDSM-MSG-TYPE-ENUM  EXPORT(usChoice1), 
+ 
+    --/* -H2ASN-MsgChoice-Export CPROCHRPDSM-MSG-TYPE-ENUM-UINT16 */ 
+    --CPROCHRPDSM-DummySignalUnion    dummySignalUnion 
+    struMsgChoice    CPROCHRPDSM-MSG-TYPE-ENUM-CHOICE-STRU 
+    --/* -H2ASN-MsgChoice-When-Comment CPROCHRPDSM-MSG-TYPE-ENUM-UINT16 */ 
+} 
+
+Cprochrpdsm-MSG    ::= <V> SEQUENCE  
+{ 
+    vOS-MSG-HEADER  VOS-MSG-HEADER, 
+ 
+    stMsgData    Cprochrpdsm-msg-data  
+} 
+
+Cprochrpdsm-DUMMY-STRUCT-TO-MAKE-H2ASN1-WORK    ::= <V> SEQUENCE  
+{ 
+    dummy    VOS-UINT32  
+} 
+
+END

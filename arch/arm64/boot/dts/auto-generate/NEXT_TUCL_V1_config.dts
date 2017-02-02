@@ -1,0 +1,20 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "NEXT_TUCL_V0_config.dtsi"
+/include/ "NEXT_TUCL_V1_pin.dtsi"
+/include/ "NEXT_TUCL_V1_modem_pin.dtsi"
+/include/ "NEXT_TUCL_V1_hi6402_pin.dtsi"
+
+/ {
+	hisi,boardid = <3 5 0 1>;
+	hisi,boardname = "NEXT_TUCL_V1";
+
+};

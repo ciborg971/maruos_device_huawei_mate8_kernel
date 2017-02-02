@@ -1,0 +1,11 @@
+/ {
+	amba {
+		i2c4: i2c@FDF0D000 {
+			max98925_smartpa:smartpa@31 {
+				compatible = "huawei,max98925";
+				reg = <0x31>;
+				status = "disabled";
+			};
+		};
+	};
+};

@@ -1,0 +1,1 @@
+../../../acore/kernel/drivers/hisi/modem/drv/socp/socp_api_test.c

@@ -1,0 +1,9 @@
+# [gu_platform]
+####################################################################
+CFG_GU_PRODUCT_VERSION =VERSION_V7R1
+CFG_RAT_GU=0
+CFG_RAT_GUL=1
+CFG_RAT_MODE =RAT_GUL
+
+# NV分区是否复用 
+CFG_FEATURE_NV_PARTRION_MULTIPLEX               = FEATURE_ON

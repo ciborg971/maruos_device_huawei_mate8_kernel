@@ -1,0 +1,36 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "NEXT_CLG_V4_config.dtsi"
+/include/ "NEXT_CLG_VN1_pin.dtsi"
+/include/ "NEXT_CLG_VN1_modem_pin.dtsi"
+/include/ "NEXT_CLG_VN1_hi6402_pin.dtsi"
+
+/ {
+	hisi,boardid = <3 5 1 2>;
+	hisi,boardname = "NEXT_CLG_VN1";
+	hisi,modem_id = <0x3C001C00>;
+	sensorhub{
+		als_sensor:light{
+			als1{
+				als_phone_version = <12>;
+			};
+			als2{
+				als_phone_version = <12>;
+			};
+		};
+	};
+	bcm_wifi {
+		wifi_nvram_name = "/vendor/firmware/nvram43455_hw_vn1.txt";
+	};
+    gps_power:gps_power{
+        sensorstatus = "ok";
+    };
+};

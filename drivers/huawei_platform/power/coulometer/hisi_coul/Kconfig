@@ -1,0 +1,9 @@
+config HISI_COULOMETER
+        bool "hisi coulometer"
+        default n
+config HISI_COULOMETER_HI6421V500
+        bool "hisi hi6421v500 coulometer"
+        default n
+config HISI_COULOMETER_TEST
+        bool "hisi coulometer test"
+        default n

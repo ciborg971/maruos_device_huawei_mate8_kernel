@@ -1,0 +1,895 @@
+--/*********************************************************************************/
+--/* FileName:      cprochrpdcmactch.asn                                           */
+--/* Description:   H2ASN TOOLS Generate ASN.1 file                                */
+--/* CopyRight:     Huawei Technologies Co., Ltd.                                  */
+--/* Created By:                                                                   */
+--/* HISTORY VER:   NULL                                                           */
+--/* VERSION:       1.0                                                            */
+--/* Create Time:   2015.9.2 9:55:51                                               */
+--/* Create Option: H2ASN C:\Users\mwx277607\AppData\Local\Temp\Huawei\Daisy\CPROCHRPDCMACTCH_ASNfile\cprochrpdcmactch.h C:\Users\mwx277607\AppData\Local\Temp\Huawei\Daisy\CPROCHRPDCMACTCH_ASNfile\cprochrpdcmactch.asn*/
+--/*********************************************************************************/
+                                                                                   
+--ROOT    : Cprochrpdcmactch-definitions.Cprochrpdcmactch-MSG                                              
+--PROTOCOL: Cprochrpdcmactch                                                                     
+--ENDIAN  : LITTLE                                                                   
+--BOUNDARY: ALIGN                                                                    
+--THREAD  : MULTI                                                                    
+                                                                                     
+Cprochrpdcmactch-definitions DEFINITIONS ::=                                                             
+BEGIN                                                                                
+                                                                                   
+VOS-UINT8  ::= <V,V|LEN-8>INTEGER(0..255) 
+
+VOS-UINT16 ::= <V,V|LEN-16>INTEGER(0..65535) 
+
+VOS-INT16  ::= <V,V|LEN-16>INTEGER(-32768..32767) 
+
+VOS-UINT32 ::= <V,V|LEN-32>INTEGER(0..4294967295) 
+
+VOS-MSG-HEADER  ::= <V>SEQUENCE 
+{ 
+    ulSenderCpuId    VOS-UINT32, 
+    ulSenderPid      VOS-UINT32, 
+    ulReceiverCpuId  VOS-UINT32, 
+    ulReceiverPid    VOS-UINT32 
+} 
+
+VOS-RATMODE-ENUM    ::= <V,V|LEN-32> ENUMERATED  
+{ 
+    vOS-RATMODE-GSM(0), 
+    vOS-RATMODE-WCDMA(1), 
+    vOS-RATMODE-LTE(2), 
+    vOS-RATMODE-TDS(3), 
+    vOS-RATMODE-1X(4), 
+    vOS-RATMODE-EVDO(5), 
+    vOS-RATMODE-BUTT(6) 
+} 
+
+MODEM-ID-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    mODEM-ID-BUTT(0) 
+} 
+
+MsgBlock    ::= <V> SEQUENCE  
+{ 
+     
+    dummy    <V>SEQUENCE(SIZE(4)) OF VOS-UINT8 
+} 
+
+CPROC-HRPD-WORKMODE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-WORKMODE-MASTER(0), 
+    cPROC-HRPD-WORKMODE-SLAVE(1), 
+    cPROC-HRPD-WORKMODE-BUTT(2) 
+} 
+
+CPROC-HRPD-CHANNEL-RECORD-STRU    ::= <V> SEQUENCE  
+{ 
+    usBandClass    VOS-UINT16 , 
+ 
+    usChannelNumber    VOS-UINT16  
+} 
+
+CPROCHRPDCMACTCH-MSG-TYPE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    iD-CTTF-CPROC-HRPD-AC-CONFIG-REQ(17152),    --/* -H2ASN-MsgChoice CTTF-CPROC-HRPD-AC-CONFIG-REQ-STRU */ 
+    iD-CPROC-CTTF-HRPD-AC-CONFIG-CNF(17153),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-AC-CONFIG-CNF-STRU */ 
+    iD-CPROC-CTTF-HRPD-AC-PROBE-IND(17154),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-AC-PROBE-IND-STRU */ 
+    iD-CTTF-CPROC-HRPD-AC-RELEASE-REQ(17155),    --/* -H2ASN-MsgChoice CTTF-CPROC-HRPD-AC-RELEASE-REQ-STRU */ 
+    iD-CPROC-CTTF-HRPD-AC-RELEASE-CNF(17156),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-AC-RELEASE-CNF-STRU */ 
+    iD-CPROC-CTTF-HRPD-AC-ERROR-IND(17157),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-AC-ERROR-IND-STRU */ 
+    iD-CTTF-CPROC-HRPD-TCH-CONFIG-REQ(17158),    --/* -H2ASN-MsgChoice CTTF-CPROC-HRPD-TCH-CONFIG-REQ-STRU */ 
+    iD-CPROC-CTTF-HRPD-TCH-CONFIG-CNF(17159),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-TCH-CONFIG-CNF-STRU */ 
+    iD-CTTF-CPROC-HRPD-TCH-RECONFIG-REQ(17160),    --/* -H2ASN-MsgChoice CTTF-CPROC-HRPD-TCH-RECONFIG-REQ-STRU */ 
+    iD-CPROC-CTTF-HRPD-TCH-RECONFIG-CNF(17161),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-TCH-RECONFIG-CNF-STRU */ 
+    iD-CTTF-CPROC-HRPD-DRC-MODE-REQ(17162),    --/* -H2ASN-MsgChoice CTTF-CPROC-HRPD-DRC-MODE-REQ-STRU */ 
+    iD-CPROC-CTTF-HRPD-DRC-MODE-CNF(17163),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-DRC-MODE-CNF-STRU */ 
+    iD-CTTF-CPROC-HRPD-TCH-RELEASE-REQ(17164),    --/* -H2ASN-MsgChoice CTTF-CPROC-HRPD-TCH-RELEASE-REQ-STRU */ 
+    iD-CPROC-CTTF-HRPD-TCH-RELEASE-CNF(17165),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-TCH-RELEASE-CNF-STRU */ 
+    iD-CPROC-CTTF-HRPD-SUSPENDED-IND(17166),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-SUSPENDED-IND-STRU */ 
+    iD-CPROC-CTTF-HRPD-RESUMED-IND(17167),    --/* -H2ASN-MsgChoice CPROC-CTTF-HRPD-RESUMED-IND-STRU */ 
+    iD-CPROCHRPDCMACTCH-MSG-TYPE-ENUM-BUTT(17168) 
+} 
+
+CPROCHRPDCMACTCH-MSG-TYPE-ENUM-CHOICE-STRU    ::= <V|WHEN>CHOICE 
+{ 
+   struCTTF-CPROC-HRPD-AC-CONFIG-REQ-STRU   CTTF-CPROC-HRPD-AC-CONFIG-REQ-STRU   WHEN(usChoice1.v==17152), 
+   struCPROC-CTTF-HRPD-AC-CONFIG-CNF-STRU   CPROC-CTTF-HRPD-AC-CONFIG-CNF-STRU   WHEN(usChoice1.v==17153), 
+   struCPROC-CTTF-HRPD-AC-PROBE-IND-STRU   CPROC-CTTF-HRPD-AC-PROBE-IND-STRU   WHEN(usChoice1.v==17154), 
+   struCTTF-CPROC-HRPD-AC-RELEASE-REQ-STRU   CTTF-CPROC-HRPD-AC-RELEASE-REQ-STRU   WHEN(usChoice1.v==17155), 
+   struCPROC-CTTF-HRPD-AC-RELEASE-CNF-STRU   CPROC-CTTF-HRPD-AC-RELEASE-CNF-STRU   WHEN(usChoice1.v==17156), 
+   struCPROC-CTTF-HRPD-AC-ERROR-IND-STRU   CPROC-CTTF-HRPD-AC-ERROR-IND-STRU   WHEN(usChoice1.v==17157), 
+   struCTTF-CPROC-HRPD-TCH-CONFIG-REQ-STRU   CTTF-CPROC-HRPD-TCH-CONFIG-REQ-STRU   WHEN(usChoice1.v==17158), 
+   struCPROC-CTTF-HRPD-TCH-CONFIG-CNF-STRU   CPROC-CTTF-HRPD-TCH-CONFIG-CNF-STRU   WHEN(usChoice1.v==17159), 
+   struCTTF-CPROC-HRPD-TCH-RECONFIG-REQ-STRU   CTTF-CPROC-HRPD-TCH-RECONFIG-REQ-STRU   WHEN(usChoice1.v==17160), 
+   struCPROC-CTTF-HRPD-TCH-RECONFIG-CNF-STRU   CPROC-CTTF-HRPD-TCH-RECONFIG-CNF-STRU   WHEN(usChoice1.v==17161), 
+   struCTTF-CPROC-HRPD-DRC-MODE-REQ-STRU   CTTF-CPROC-HRPD-DRC-MODE-REQ-STRU   WHEN(usChoice1.v==17162), 
+   struCPROC-CTTF-HRPD-DRC-MODE-CNF-STRU   CPROC-CTTF-HRPD-DRC-MODE-CNF-STRU   WHEN(usChoice1.v==17163), 
+   struCTTF-CPROC-HRPD-TCH-RELEASE-REQ-STRU   CTTF-CPROC-HRPD-TCH-RELEASE-REQ-STRU   WHEN(usChoice1.v==17164), 
+   struCPROC-CTTF-HRPD-TCH-RELEASE-CNF-STRU   CPROC-CTTF-HRPD-TCH-RELEASE-CNF-STRU   WHEN(usChoice1.v==17165), 
+   struCPROC-CTTF-HRPD-SUSPENDED-IND-STRU   CPROC-CTTF-HRPD-SUSPENDED-IND-STRU   WHEN(usChoice1.v==17166), 
+   struCPROC-CTTF-HRPD-RESUMED-IND-STRU   CPROC-CTTF-HRPD-RESUMED-IND-STRU   WHEN(usChoice1.v==17167) 
+} 
+
+CPROC-HRPD-ACC-PROBE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-ACC-PROBE-TRANSMITTED(0), 
+    cPROC-HRPD-ACC-PROBE-NW-ABLE-TO-DECODE(1), 
+    cPROC-HRPD-ACC-PROBE-NW-NOT-ABLE-TO-DECODE(2), 
+    cPROC-HRPD-ACC-PROBE-NOT-TRANSMITTED(3), 
+    cPROC-HRPD-ACC-PROBE-BUTT(4) 
+} 
+
+CPROC-HRPD-AC-CONFIG-CNF-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-AC-CONFIG-CNF-SUCCESS(0), 
+    cPROC-HRPD-AC-CONFIG-CNF-BAD-TIME(1), 
+    cPROC-HRPD-AC-CONFIG-CNF-BUTT(2) 
+} 
+
+CPROC-HRPD-CHANNEL-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-CHANNEL-NOT-INCLUDED(0), 
+    cPROC-HRPD-CHANNEL-INCLUDED(1), 
+    cPROC-HRPD-CHANNEL-BUTT(2) 
+} 
+
+CPROC-HRPD-DRC-MODE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-DRC-MODE-VARIABLE(0), 
+    cPROC-HRPD-DRC-MODE-FIXED(1), 
+    cPROC-HRPD-DRC-MODE-BUTT(2) 
+} 
+
+CPROC-HRPD-TL-IDLE-ASP-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-TL-IDLE-ASP-DO-NOT-RESET(0), 
+    cPROC-HRPD-TL-IDLE-ASP-RESET(1), 
+    cPROC-HRPD-TL-IDLE-ASP-BUTT(2) 
+} 
+
+CPROC-HRPD-TL-SS-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-TL-SS-DO-NOT-RESET(0), 
+    cPROC-HRPD-TL-SS-RESET(1), 
+    cPROC-HRPD-TL-SS-BUTT(2) 
+} 
+
+CPROC-HRPD-SOFTER-HANDOFF-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-SOFTER-HANDOFF-FALSE(0), 
+    cPROC-HRPD-SOFTER-HANDOFF-TRUE(1), 
+    cPROC-HRPD-SOFTER-HANDOFF-BUTT(2) 
+} 
+
+CPROC-HRPD-MULTIUSER-PACKET-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-MULTIUSER-PACKET-DISABLED(0), 
+    cPROC-HRPD-MULTIUSER-PACKET-ENABLED(1), 
+    cPROC-HRPD-MULTIUSER-PACKET-BUTT(2) 
+} 
+
+CPROC-HRPD-NULL-RATE-DRC-38K4-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-NULL-RATE-DRC-38K4-DISABLED(0), 
+    cPROC-HRPD-NULL-RATE-DRC-38K4-ENABLED(1), 
+    cPROC-HRPD-NULL-RATE-DRC-38K4-BUTT(2) 
+} 
+
+CPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-128(0), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-256(1), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-512(2), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-768(3), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-1024(4), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-1536(5), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-2048(6), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-3072(7), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-4096(8), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-6144(9), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-8192(10), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-RATE-12288(11), 
+    cPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-BUTT(12) 
+} 
+
+CPROC-HRPD-DRC-TENTATIVE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-DRC-TENTATIVE-NULL(0), 
+    cPROC-HRPD-DRC-TENTATIVE-NOT-NULL(1), 
+    cPROC-HRPD-DRC-TENTATIVE-BUTT(2) 
+} 
+
+CPROC-HRPD-AC-STOP-CNF-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-AC-STOP-CNF-TX-ONGOING(0), 
+    cPROC-HRPD-AC-STOP-CNF-TX-STOPPED(1), 
+    cPROC-HRPD-AC-STOP-CNF-BUTT(2) 
+} 
+
+CPROC-HRPD-PHYSICAL-LAYER-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-PHYSICAL-LAYER-DEFAULT(0),    --/* -H2ASN-MsgChoice CPROC-HRPD-FTC-RTC-DEFAULT-PARAMETERS-STRU */ 
+    cPROC-HRPD-PHYSICAL-LAYER-SUBTYPE-2(1),    --/* -H2ASN-MsgChoice CPROC-HRPD-FTC-RTC-SUBTYPE2-PARAMETERS-STRU */ 
+    cPROC-HRPD-PHYSICAL-LAYER-SUBTYPE-BUTT(2) 
+} 
+
+CPROC-HRPD-PHYSICAL-LAYER-ENUM-CHOICE-STRU    ::= <V|WHEN,V|UNION-1>CHOICE 
+{ 
+   struCPROC-HRPD-FTC-RTC-DEFAULT-PARAMETERS-STRU   CPROC-HRPD-FTC-RTC-DEFAULT-PARAMETERS-STRU   WHEN(usChoice2.v==0), 
+   struCPROC-HRPD-FTC-RTC-SUBTYPE2-PARAMETERS-STRU   CPROC-HRPD-FTC-RTC-SUBTYPE2-PARAMETERS-STRU   WHEN(usChoice2.v==1) 
+} 
+
+CPROC-HRPD-ARQ-MODE-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-ARQ-MODE-BI-POLAR-KEYING(0), 
+    cPROC-HRPD-ARQ-MODE-ACK-ORIENTED-KEYING(1), 
+    cPROC-HRPD-ARQ-MODE-BUTT(2) 
+} 
+
+CPROC-HRPD-DRC-GATING-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-DRC-GATING-CONTINOUS(0), 
+    cPROC-HRPD-DRC-GATING-DISCONTINOUS(1), 
+    cPROC-HRPD-DRC-GATING-BUTT(2) 
+} 
+
+CPROC-HRPD-DRC-LENGTH-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-DRC-LENGTH-1-SLOT(0), 
+    cPROC-HRPD-DRC-LENGTH-2-SLOT(1), 
+    cPROC-HRPD-DRC-LENGTH-4-SLOT(2), 
+    cPROC-HRPD-DRC-LENGTH-8-SLOT(3), 
+    cPROC-HRPD-DRC-LENGTH-BUTT(4) 
+} 
+
+CPROC-HRPD-DRC-LOCK-PERIOD-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-DRC-LOCK-PERIOD-8-SLOTS(0), 
+    cPROC-HRPD-DRC-LOCK-PERIOD-16-SLOTS(1), 
+    cPROC-HRPD-DRC-LOCK-PERIOD-BUTT(2) 
+} 
+
+CPROC-HRPD-AC-DATA-SPEED-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-AC-DATA-SPEED-9K6(0), 
+    cPROC-HRPD-AC-DATA-SPEED-19K2(1), 
+    cPROC-HRPD-AC-DATA-SPEED-38K4(2), 
+    cPROC-HRPD-AC-DATA-SPEED-BUTT(3) 
+} 
+
+CPROC-HRPD-RA-CHANNEL-GAIN-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-RA-CHANNEL-GAIN-NOT-APPLICABLE(0), 
+    cPROC-HRPD-RA-CHANNEL-GAIN-NEG-6-DB(1), 
+    cPROC-HRPD-RA-CHANNEL-GAIN-NEG-9-DB(2), 
+    cPROC-HRPD-RA-CHANNEL-GAIN-NEG-12-DB(3), 
+    cPROC-HRPD-RA-CHANNEL-GAIN-NEG-15-DB(4), 
+    cPROC-HRPD-RA-CHANNEL-GAIN-BUTT(5) 
+} 
+
+CPROC-HRPD-RPC-STEP-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-RPC-STEP-HALF-DB(0), 
+    cPROC-HRPD-RPC-STEP-ONE-DB(1), 
+    cPROC-HRPD-RPC-STEP-BUTT(2) 
+} 
+
+CPROC-HRPD-SHORT-PACKET-EN-THRESH-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-SHORT-PACKET-EN-THRESH-1024-BITS(0), 
+    cPROC-HRPD-SHORT-PACKET-EN-THRESH-2048-BITS(1), 
+    cPROC-HRPD-SHORT-PACKET-EN-THRESH-3072-BITS(2), 
+    cPROC-HRPD-SHORT-PACKET-EN-THRESH-4096-BITS(3), 
+    cPROC-HRPD-SHORT-PACKET-EN-THRESH-BUTT(4) 
+} 
+
+CPROC-HRPD-RAB-LENGTH-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-RAB-LENGTH-8-SLOTS(0), 
+    cPROC-HRPD-RAB-LENGTH-16-SLOTS(1), 
+    cPROC-HRPD-RAB-LENGTH-32-SLOTS(2), 
+    cPROC-HRPD-RAB-LENGTH-64-SLOTS(3), 
+    cPROC-HRPD-RAB-LENGTH-BUTT(4) 
+} 
+
+CPROC-HRPD-TCH-RECONFIG-ENUM    ::= <V,V|LEN-16> ENUMERATED  
+{ 
+    cPROC-HRPD-TCH-RECONFIG-SUBTYPE-NOT-CHANGED(0),    --/* -H2ASN-MsgChoice CPROC-HRPD-TCH-RECONFIG-STRU */ 
+    cPROC-HRPD-TCH-RECONFIG-SUBTYPE-CHANGED(1),    --/* -H2ASN-MsgChoice CPROC-HRPD-TCH-CONFIG-STRU */ 
+    cPROC-HRPD-TCH-RECONFIG-BUTT(2) 
+} 
+
+CPROC-HRPD-TCH-RECONFIG-ENUM-CHOICE-STRU    ::= <V|WHEN,V|UNION-1>CHOICE 
+{ 
+   struCPROC-HRPD-TCH-RECONFIG-STRU   CPROC-HRPD-TCH-RECONFIG-STRU   WHEN(usChoice3.v==0), 
+   struCPROC-HRPD-TCH-CONFIG-STRU   CPROC-HRPD-TCH-CONFIG-STRU   WHEN(usChoice3.v==1) 
+} 
+
+CPROC-HRPD-RTC-PARAMS-DEFAULT-STRU    ::= <V> SEQUENCE  
+{ 
+    sDataOffsetNorm    VOS-INT16, 
+ 
+    --/**< range [-8..7] in unit of 0.5dB, the logical power is in range -4 to 3.5dB */ 
+    sDataOffset9k6    VOS-INT16, 
+ 
+    --/**< range [-8..7] in unit of 0.25dB, the logical power is in range -2 to 1.75dB */ 
+    sDataOffset19k2    VOS-INT16, 
+ 
+    --/**< range [-8..7] in unit of 0.25dB, the logical power is in range -2 to 1.75dB */ 
+    sDataOffset38k4    VOS-INT16, 
+ 
+    --/**< range [-8..7] in unit of 0.25dB, the logical power is in range -2 to 1.75dB */ 
+    sDataOffset76k8    VOS-INT16, 
+ 
+    --/**< range [-8..7] in unit of 0.25dB, the logical power is in range -2 to 1.75dB */ 
+    sDataOffset156k3    VOS-INT16, 
+ 
+    --/**< range [-8..7] in unit of 0.25dB, the logical power is in range -2 to 1.75dB */ 
+    sDrcChannelGainBase    VOS-INT16, 
+ 
+    --/**< range [-18..12] in unit of 0.5dB, the logical power is in range -9dB to 6dB */ 
+     
+    ausReserved    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16 
+    --/**< 32 bit alignment */ 
+} 
+
+CPROC-HRPD-FTC-RECONFIG-PARAMETERS-STRU    ::= <V> SEQUENCE  
+{ 
+    enDrcGating    CPROC-HRPD-DRC-GATING-ENUM, 
+ 
+    --/**< Continous, Discontinous */ 
+    usDrcLockLength    VOS-UINT16, 
+ 
+    --/**< 4 (default only), 8, 16, 32, 64 (subtype 2 only) */ 
+    enDrcLength    CPROC-HRPD-DRC-LENGTH-ENUM, 
+ 
+    --/**< 1-SLOT, 2-SLOTS, 4-SLOTS, 8-SLOTS */ 
+    usSofterHandoffDelay    VOS-UINT16, 
+ 
+    --/**< in units of 8 slots */ 
+    usSoftHandoffDelay    VOS-UINT16, 
+ 
+    --/**< in units of 8 slots */ 
+    sAckChannelGain    VOS-INT16, 
+ 
+    --/**< range [-6..12] in unit of 0.5dB, the logical power is in range -3dB to +6dB */ 
+    enMultiUserPacketEnable    CPROC-HRPD-MULTIUSER-PACKET-ENUM, 
+ 
+    --/**< Multi User Packet enabled */ 
+    enShortPacketsEnabledThresh    CPROC-HRPD-SHORT-PACKET-EN-THRESH-ENUM 
+    --/**< Short packets enabled threshold */ 
+} 
+
+CPROC-HRPD-FTC-PARAMS-DEFAULT-STRU    ::= <V> SEQUENCE  
+{ 
+    enDrcLockPeriod    CPROC-HRPD-DRC-LOCK-PERIOD-ENUM, 
+ 
+    --/**< 8-SLOTS, 16-SLOTS */ 
+    enNullRateDRC38k4    CPROC-HRPD-NULL-RATE-DRC-38K4-ENUM 
+    --/**< DISABLED, ENABLED */ 
+} 
+
+CPROC-HRPD-FTC-PARAMS-SUBTYPE2-STRU    ::= <V> SEQUENCE  
+{ 
+    enMultiUserPacketEnable    CPROC-HRPD-MULTIUSER-PACKET-ENUM, 
+ 
+    --/**< Multi User Packet enabled */ 
+    usDeltaAckChannelGainMUP    VOS-UINT16, 
+ 
+    --/**< Additional gain for Multi User Ack; in units of 0.5dB; 0 to 9dB */ 
+    enShortPacketsEnabledThresh    CPROC-HRPD-SHORT-PACKET-EN-THRESH-ENUM, 
+ 
+    --/**< Short packets enabled threshold */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16 
+} 
+
+CPROC-HRPD-FTC-PARAMS-STRU    ::= <V> SEQUENCE  
+{ 
+    enDrcGating    CPROC-HRPD-DRC-GATING-ENUM, 
+ 
+    --/**< Continous, Discontinous */ 
+    usDrcLockLength    VOS-UINT16, 
+ 
+    --/**< 4 (default only), 8, 16, 32, 64 (subtype 2 only) */ 
+    enDrcLength    CPROC-HRPD-DRC-LENGTH-ENUM, 
+ 
+    --/**< 1-SLOT, 2-SLOTS, 4-SLOTS, 8-SLOTS */ 
+    usSofterHandoffDelay    VOS-UINT16, 
+ 
+    --/**< in units of 8 slots */ 
+    usSoftHandoffDelay    VOS-UINT16, 
+ 
+    --/**< in units of 8 slots */ 
+    sAckChannelGain    VOS-INT16 
+    --/**< range [-6..12] in unit of 0.5dB, the logical power is in range -3dB to +6dB */ 
+} 
+
+CPROC-HRPD-RTC-RECONFIG-PARAMETERS-STRU    ::= <V> SEQUENCE  
+{ 
+    enRpcStep    CPROC-HRPD-RPC-STEP-ENUM, 
+ 
+    --/**< HALF-DB, ONE-DB */ 
+    usSilenceDuration    VOS-UINT16, 
+ 
+    --/**< Reverse link silence duration in frames [1..3] */ 
+    usSilencePeriod    VOS-UINT16, 
+ 
+    --/**< Reverse link silence period, silence period starts at T mod (2048*2^usSilencePeriod - 1) = 0. */ 
+    enArqMode    CPROC-HRPD-ARQ-MODE-ENUM, 
+ 
+    --/**< Bi Polar or ACK oriented */ 
+     
+    ausDrcTranslationOffsetTable    <V>SEQUENCE(SIZE(14)) OF VOS-UINT16, 
+ 
+    --/**< Used when computing DRC value from Tentative DRCs */ 
+    sDrcChannelGainBase    VOS-INT16, 
+ 
+    --/**< range [-18..12] in unit of 0.5dB, the logical power is in range -9dB to 6dB */ 
+    usDrcChannelGainBoost    VOS-UINT16, 
+ 
+    --/**< range [0..6] in units of 1 dB, 0 to 6dB */ 
+    usDrcBoostLength    VOS-UINT16, 
+ 
+    --/**< range [0..32] in units of 2 slots; the logical range is 0..64 slots */ 
+    usDscChannelGainBoost    VOS-UINT16, 
+ 
+    --/**< range [0..6] in units of 1 dB, 0 to 6dB */ 
+    usDscBoostLength    VOS-UINT16, 
+ 
+    --/**< range [0..64] in units of 8 slots; the logical range is 0 to 512 slots */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16 
+    --/**< 32 bit alignment */ 
+} 
+
+CPROC-HRPD-RTC-PARAMS-SUBTYPE2-STRU    ::= <V> SEQUENCE  
+{ 
+    enArqMode    CPROC-HRPD-ARQ-MODE-ENUM, 
+ 
+    --/**< Bi Polar or ACK oriented */ 
+    usAuxililaryPilotChannelGain    VOS-UINT16, 
+ 
+    --/**< in units of -1 dB, range 0 to -15dB */ 
+    enAuxililaryPilotChannelMinPayload    CPROC-HRPD-AUX-PILOT-MIN-PAYLOAD-ENUM, 
+ 
+    --/**< minimum payload for tx of Aux pilot. */ 
+    sRRIChannelGainPreTransition3    VOS-INT16, 
+ 
+    --/**< -8 dB to +7 dB, unit 1 dB */ 
+     
+    ausMaxNumSubPacket    <V>SEQUENCE(SIZE(3)) OF VOS-UINT16, 
+ 
+     
+    ausDrcTranslationOffsetTable    <V>SEQUENCE(SIZE(14)) OF VOS-UINT16, 
+ 
+    --/**< Used when computing DRC value from Tentative DRCs */ 
+    sDrcChannelGainBase    VOS-INT16, 
+ 
+    --/**< -9dB to 6dB; 2's complement in units of 0.5dB */ 
+    usDrcChannelGainBoost    VOS-UINT16, 
+ 
+    --/**< in units of 1 dB, 0 to 6dB */ 
+    usDrcBoostLength    VOS-UINT16, 
+ 
+    --/**< in units of 2 slots; 0..64 slots */ 
+    usDscLength    VOS-UINT16, 
+ 
+    --/**< length of DSC transm. in units of 8 slots */ 
+    usDscChannelGainBase    VOS-UINT16, 
+ 
+    --/**< 0dB to -15.5dB; in units of -0.5dB */ 
+    usDscChannelGainBoost    VOS-UINT16, 
+ 
+    --/**< in units of 1dB,  0 to 6dB */ 
+    usDscBoostLength    VOS-UINT16, 
+ 
+    --/**< in units of 8 slots; 0 to 512 slots */ 
+    usTxT2Pmin    VOS-UINT16, 
+ 
+    --/**< 0dB to 63.75 dB in steps of 0.25 dB */ 
+     
+    aucReserved    <V>SEQUENCE(SIZE(2)) OF VOS-UINT8 
+    --/**< 32 bit alignment */ 
+} 
+
+CPROC-HRPD-RTC-PARAMETERS-STRU    ::= <V> SEQUENCE  
+{ 
+     
+    aulMiRtcMac    <V>SEQUENCE(SIZE(2)) OF VOS-UINT32, 
+ 
+    --/**< [0]: 31..0 [1]:41..32 */ 
+     
+    aulMqRtcMac    <V>SEQUENCE(SIZE(2)) OF VOS-UINT32, 
+ 
+    --/**< [0]: 31..0 [1]:41..32 */ 
+    enRpcStep    CPROC-HRPD-RPC-STEP-ENUM, 
+ 
+    --/**< HALF-DB, ONE-DB */ 
+    usFrameOffset    VOS-UINT16, 
+ 
+    --/**< RTC and RRI delay offset in slots [0..15] */ 
+    usSilenceDuration    VOS-UINT16, 
+ 
+    --/**< Reverse link silence duration in frames [1..3] */ 
+    usSilencePeriod    VOS-UINT16 
+    --/**< Reverse link silence period, silence period starts at T mod (2048*2^usSilencePeriod - 1) = 0. */ 
+} 
+
+CPROC-HRPD-TCH-PILOT-PARAMETERS-STRU    ::= <V> SEQUENCE  
+{ 
+    usPilotPN    VOS-UINT16, 
+ 
+    --/**< Pilot PN */ 
+    usMacIndex    VOS-UINT16, 
+ 
+    --/**< As MAC-Index 5-63 for subtype0; 5-63, 66-70, 72-127 for subtype2 */ 
+    enSofterHandoff    CPROC-HRPD-SOFTER-HANDOFF-ENUM, 
+ 
+    --/**< Sector is in softer handoff  with the previous sector */ 
+    enRaChannelGain    CPROC-HRPD-RA-CHANNEL-GAIN-ENUM, 
+ 
+    --/**< RA channel gain */ 
+    usDrcCover    VOS-UINT16, 
+ 
+    --/**< DRC Cover index */ 
+    enRabLength    CPROC-HRPD-RAB-LENGTH-ENUM, 
+ 
+    --/**< Default only: 8-SLOTS, 16-SLOTS, 32-SLOTS, 64-SLOTS */ 
+    usRabSlotOffset    VOS-UINT16, 
+ 
+    --/**< Default only: Corresponds to RAB-Offset * RAB-Lenth   8 */ 
+    usDscCover    VOS-UINT16 
+    --/**< Subtype2 only: Only applicable if softerhandoff parameter is set to 0 */ 
+} 
+
+CPROC-HRPD-ACTIVE-SET-STRU    ::= <V> SEQUENCE  
+{ 
+    usIdActiveSet    VOS-UINT16, 
+ 
+    --/**< Id for the Active Set, echoed back in Slot buffer */ 
+    usNumPilotsInActiveSet    VOS-UINT16, 
+ 
+    --/**< number of pilots in active set. [1..6] */ 
+     
+    astPilotParameters    <V>SEQUENCE(SIZE(6)) OF CPROC-HRPD-TCH-PILOT-PARAMETERS-STRU 
+    --/**< Active Set */ 
+} 
+
+CPROC-HRPD-FTC-RTC-DEFAULT-PARAMETERS-STRU    ::= <V> SEQUENCE  
+{ 
+    stFtc    CPROC-HRPD-FTC-PARAMS-DEFAULT-STRU, 
+ 
+    --/**< Default FTC specific parameters */ 
+    stRtc    CPROC-HRPD-RTC-PARAMS-DEFAULT-STRU 
+    --/**< Default RTC specific parameters */ 
+} 
+
+CPROC-HRPD-FTC-RTC-SUBTYPE2-PARAMETERS-STRU    ::= <V> SEQUENCE  
+{ 
+    stFtc    CPROC-HRPD-FTC-PARAMS-SUBTYPE2-STRU, 
+ 
+    --/**< Subtype 2 FTC specific parameters */ 
+    stRtc    CPROC-HRPD-RTC-PARAMS-SUBTYPE2-STRU 
+    --/**< Subtype 2 RTC specific parameters */ 
+} 
+
+CPROC-HRPD-TCH-RECONFIG-STRU    ::= <V> SEQUENCE  
+{ 
+    enSubtype    CPROC-HRPD-PHYSICAL-LAYER-ENUM, 
+ 
+    --/**< Default, Subtype 2 */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16, 
+ 
+    --/**< 32 bit alignment */ 
+    stFTCParameters    CPROC-HRPD-FTC-RECONFIG-PARAMETERS-STRU, 
+ 
+    --/**< FTC Parameters */ 
+    stRTCParameters    CPROC-HRPD-RTC-RECONFIG-PARAMETERS-STRU 
+    --/**< RTC Parameters */ 
+} 
+
+CPROC-HRPD-TCH-CONFIG-STRU    ::= <V> SEQUENCE  
+{ 
+    enSubtype    <V,V|LEN-16>CPROC-HRPD-PHYSICAL-LAYER-ENUM  EXPORT(usChoice2), 
+ 
+    --/* -H2ASN-MsgChoice-Export CPROC-HRPD-PHYSICAL-LAYER-ENUM-UINT16 */ 
+    --/**< Default, Subtype 2 */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16, 
+ 
+    --/**< 32 bit alignment */ 
+    stRtcParams    CPROC-HRPD-RTC-PARAMETERS-STRU, 
+ 
+    --/**< RTC params */ 
+    stFtcParam    CPROC-HRPD-FTC-PARAMS-STRU, 
+ 
+    --/**< FTC params */ 
+    --CPROC-HRPD-FTC-RTC-PARAMETERS-UNION    stStParam 
+    struMsgChoice    CPROC-HRPD-PHYSICAL-LAYER-ENUM-CHOICE-STRU 
+    --/* -H2ASN-MsgChoice-When-Comment CPROC-HRPD-PHYSICAL-LAYER-ENUM-UINT16 */ 
+    --/**< Subtype dependent params */ 
+} 
+
+CTTF-CPROC-HRPD-AC-CONFIG-REQ-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+     
+    aulMiAcmac    <V>SEQUENCE(SIZE(2)) OF VOS-UINT32, 
+ 
+    --/**< aulMiAcmac[0] 31..0, aulMiAcmac[1] 41..32 */ 
+     
+    aulMqAcmac    <V>SEQUENCE(SIZE(2)) OF VOS-UINT32, 
+ 
+    --/**< aulMqAcmac[0] 31..0, aulMqAcmac[1] 41..32 */ 
+     
+    ulACstartTime    <V>SEQUENCE(SIZE(2)) OF VOS-UINT32, 
+ 
+    --/**< Probe start time in units of slots [0] low, [1] high */ 
+    usPreambleLength    VOS-UINT16, 
+ 
+    --/**< Preamble length in frames [1..7] */ 
+    usNbrOfMACPackets    VOS-UINT16, 
+ 
+    --/**< Length of transmission in frames <= CapsuleLengthMax */ 
+    sDataOffsetNorm    VOS-INT16, 
+ 
+    --/**< unit 0.5dB,  magnitude format */ 
+    sDataOffset9k6    VOS-INT16, 
+ 
+    --/**< unit 0.25dB,  magnitude format */ 
+    sPowerAdjust    VOS-INT16, 
+ 
+    --/**< unit 0.5dB,  magnitude format = openLoopAdjust + probeInitialAdjust + (i-1)*powerStep */ 
+    enAcDataSpeed    CPROC-HRPD-AC-DATA-SPEED-ENUM 
+    --/**< Rate */ 
+} 
+
+CPROC-CTTF-HRPD-AC-CONFIG-CNF-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    enResult    CPROC-HRPD-AC-CONFIG-CNF-ENUM, 
+ 
+    --/**< Success or bad time */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16 
+    --/**< 32 bit alignment */ 
+} 
+
+CPROC-CTTF-HRPD-AC-PROBE-IND-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    enProbeStatus    CPROC-HRPD-ACC-PROBE-ENUM, 
+ 
+    --/**< Fully, partly or not transmitted */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16 
+    --/**< 32 bit alignment */ 
+} 
+
+CTTF-CPROC-HRPD-AC-RELEASE-REQ-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16  
+} 
+
+CPROC-CTTF-HRPD-AC-RELEASE-CNF-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    enACstopStatus    CPROC-HRPD-AC-STOP-CNF-ENUM, 
+ 
+    --/**< AC stop status */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16 
+    --/**< 32 bit alignment */ 
+} 
+
+CPROC-CTTF-HRPD-AC-ERROR-IND-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16  
+} 
+
+CTTF-CPROC-HRPD-TCH-CONFIG-REQ-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    enChannelIncluded    CPROC-HRPD-CHANNEL-ENUM, 
+ 
+    --/**< Channel Info valid flag */ 
+    usConfigId    VOS-UINT16, 
+ 
+    --/**< Config ID for this configuration */ 
+    stChannelInfo    CPROC-HRPD-CHANNEL-RECORD-STRU, 
+ 
+    --/**< channel */ 
+    stActiveSet    CPROC-HRPD-ACTIVE-SET-STRU, 
+ 
+    --/**< Active set parameters */ 
+    stConfigParam    CPROC-HRPD-TCH-CONFIG-STRU 
+    --/**< TCH parameters */ 
+} 
+
+CPROC-CTTF-HRPD-TCH-CONFIG-CNF-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    ulResult    VOS-UINT32 
+    --/**< 0-success, others-failure */ 
+} 
+
+CTTF-CPROC-HRPD-TCH-RECONFIG-REQ-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    enReconfigType    <V,V|LEN-16>CPROC-HRPD-TCH-RECONFIG-ENUM  EXPORT(usChoice3), 
+ 
+    --/* -H2ASN-MsgChoice-Export CPROC-HRPD-TCH-RECONFIG-ENUM-UINT16 */ 
+    --/**< subtype changed */ 
+    enChannelIncluded    CPROC-HRPD-CHANNEL-ENUM, 
+ 
+    --/**< Channel Info valid flag */ 
+    stChannelInfo    CPROC-HRPD-CHANNEL-RECORD-STRU, 
+ 
+    --/**< channel */ 
+    usConfigId    VOS-UINT16, 
+ 
+    --/**< Config ID for this configuration */ 
+     
+    ausReserved    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16, 
+ 
+    --/**< 32 bit alignment */ 
+    stActiveSet    CPROC-HRPD-ACTIVE-SET-STRU, 
+ 
+    --/**< Active set parameters */ 
+    --CPROC-HRPD-TCH-RECONFIG-UNION    stTchParam 
+    struMsgChoice    CPROC-HRPD-TCH-RECONFIG-ENUM-CHOICE-STRU 
+    --/* -H2ASN-MsgChoice-When-Comment CPROC-HRPD-TCH-RECONFIG-ENUM-UINT16 */ 
+} 
+
+CPROC-CTTF-HRPD-TCH-RECONFIG-CNF-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16  
+} 
+
+CTTF-CPROC-HRPD-DRC-MODE-REQ-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    enDrcMode    CPROC-HRPD-DRC-MODE-ENUM, 
+ 
+    --/**< Fixed or Variable Mode */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16 
+    --/**< 32 bit alignment */ 
+} 
+
+CPROC-CTTF-HRPD-DRC-MODE-CNF-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16 , 
+ 
+    enDrcMode    CPROC-HRPD-DRC-MODE-ENUM, 
+ 
+    --/**< Fixed or Variable Mode */ 
+     
+    ausReserve    <V>SEQUENCE(SIZE(1)) OF VOS-UINT16, 
+ 
+    --/**< 32 bit alignment */ 
+    usDRCValue    VOS-UINT16, 
+ 
+    --/**< final value of DRCValue */ 
+    usDRCCover    VOS-UINT16 
+    --/**< final value of DRCCover */ 
+} 
+
+CTTF-CPROC-HRPD-TCH-RELEASE-REQ-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16  
+} 
+
+CPROC-CTTF-HRPD-TCH-RELEASE-CNF-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16  
+} 
+
+CPROC-CTTF-HRPD-SUSPENDED-IND-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16  
+} 
+
+CPROC-CTTF-HRPD-RESUMED-IND-STRU    ::= <V> SEQUENCE  
+{ 
+    --// VOS-MSG-HEADER 
+ 
+    --// CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 enMsgId; 
+ 
+    usOpId    VOS-UINT16  
+} 
+
+Cprochrpdcmactch-msg-data    ::= <LV,L|LEN-32> SEQUENCE  
+{ 
+    enMsgId    <V,V|LEN-16>CPROCHRPDCMACTCH-MSG-TYPE-ENUM  EXPORT(usChoice1), 
+ 
+    --/* -H2ASN-MsgChoice-Export CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 */ 
+    --CPROCHRPDCMACTCH-DummySignalUnion    dummySignalUnion 
+    struMsgChoice    CPROCHRPDCMACTCH-MSG-TYPE-ENUM-CHOICE-STRU 
+    --/* -H2ASN-MsgChoice-When-Comment CPROCHRPDCMACTCH-MSG-TYPE-ENUM-UINT16 */ 
+} 
+
+Cprochrpdcmactch-MSG    ::= <V> SEQUENCE  
+{ 
+    vOS-MSG-HEADER  VOS-MSG-HEADER, 
+ 
+    stMsgData    Cprochrpdcmactch-msg-data  
+} 
+
+Cprochrpdcmactch-DUMMY-STRUCT-TO-MAKE-H2ASN1-WORK    ::= <V> SEQUENCE  
+{ 
+    dummy    VOS-UINT32  
+} 
+
+END

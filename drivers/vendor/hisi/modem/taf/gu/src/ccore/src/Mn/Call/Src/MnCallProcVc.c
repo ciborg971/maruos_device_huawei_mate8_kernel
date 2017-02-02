@@ -1,0 +1,202 @@
+
+
+
+/*****************************************************************************
+   1 头文件包含
+*****************************************************************************/
+#include "MnCallProcVc.h"
+#include "MnCallApi.h"
+#include "MnCallMgmt.h"
+#include "MnCallReqProc.h"
+#include "MnCallCtx.h"
+#include "MnComm.h"
+#include "MnCallTimer.h"
+#include "MnCallSendCc.h"
+
+
+#ifdef __cplusplus
+#if __cplusplus
+extern "C" {
+#endif /* __cpluscplus */
+#endif /* __cpluscplus */
+
+
+#define    THIS_FILE_ID                 PS_FILE_ID_MN_CALL_PROC_VC_C
+
+/*****************************************************************************
+   2 变量定义
+*****************************************************************************/
+/* call所有呼叫信息 */
+LOCAL MN_CALL_INFO_STRU                   f_astCallInfos[MN_CALL_MAX_NUM];
+
+VC_TO_TAFCS_CAUSE_STRU                    g_astVcCauseToTafCsCause[] =
+{
+    {APP_VC_OPEN_CHANNEL_FAIL_CAUSE_STARTED         ,   TAF_CS_CAUSE_VC_ERR_STARTED         },
+    {APP_VC_OPEN_CHANNEL_FAIL_CAUSE_PORT_CFG_FAIL   ,   TAF_CS_CAUSE_VC_ERR_PORT_CFG_FAIL   },
+    {APP_VC_OPEN_CHANNEL_FAIL_CAUSE_SET_DEVICE_FAIL ,   TAF_CS_CAUSE_VC_ERR_SET_DEVICE_FAIL },
+    {APP_VC_OPEN_CHANNEL_FAIL_CAUSE_SET_START_FAIL  ,   TAF_CS_CAUSE_VC_ERR_SET_START_FAIL  },
+    {APP_VC_OPEN_CHANNEL_FAIL_CAUSE_SET_VOLUME_FAIL ,   TAF_CS_CAUSE_VC_ERR_SET_VOLUME_FAIL },
+    {APP_VC_OPEN_CHANNEL_FAIL_CAUSE_SAMPLE_RATE_FAIL,   TAF_CS_CAUSE_VC_ERR_SAMPLE_RATE_FAIL},
+    {APP_VC_OPEN_CHANNEL_FAIL_CAUSE_TI_START_EXPIRED,   TAF_CS_CAUSE_VC_ERR_TI_START_EXPIRED},
+};
+/*****************************************************************************
+   3 函数实现
+*****************************************************************************/
+/*lint -save -e958 */
+
+VOS_VOID TAF_CALL_RcvVcCallEndCall(VC_CALL_MSG_STRU *pstEndCall)
+{
+    TAF_UINT8                           ucNumOfCalls;
+    MN_CALL_END_PARAM_STRU              stEndParm;
+    VOS_UINT32                          ulRet;
+
+    /* ECALL时收到MED的AlAck上报，认为是正常挂断，报原因值#16 */
+    stEndParm.enEndCause    = TAF_CALL_ConvertVcCauseToTafCsCause(pstEndCall->enCause);
+
+    MN_CALL_GetCallInfoList(&ucNumOfCalls,f_astCallInfos);
+    if (ucNumOfCalls != 0)
+    {
+        ulRet = MN_CALL_InternalCallEndReqProc(MN_CLIENT_ALL,
+                                               0,
+                                               f_astCallInfos[0].callId,
+                                               &stEndParm);
+        if (TAF_CS_CAUSE_SUCCESS != ulRet)
+        {
+            MN_WARN_LOG("TAF_CALL_RcvVcCallEndCall: Fail to MN_CALL_InternalCallEndReqProc.");
+        }
+    }
+}
+
+#if (FEATURE_ON == FEATURE_ECALL)
+VOS_VOID TAF_CALL_ProcEcallMsdTransSuccess(VOID)
+{
+    MN_CALL_MSG_BUFF_STRU              *pstBufferdMsg = VOS_NULL_PTR;
+    VOS_UINT8                           ucCallId;
+    MN_CALL_STATE_ENUM_U8               enCallState;
+    MN_CALL_MPTY_STATE_ENUM_U8          enMptyState;
+    MN_CALL_TIMER_STATUS_ENUM_U8        enTimerStatus;
+
+    /* Added by w00316404 for clean coverity, 2015-4-2, begin */
+    enCallState                         = MN_CALL_S_BUTT;
+    /* Added by w00316404 for clean coverity, 2015-4-2, end */
+
+
+    pstBufferdMsg = MN_CALL_GetBufferedMsg();
+    if (VOS_FALSE == pstBufferdMsg->bitOpBufferedSetupMsg)
+    {
+        /* 无缓存，直接更新MSD状态到初始态 */
+        TAF_CALL_SetEcallMsdTransStatus(VC_CALL_ECALL_TRANS_STATUS_BUTT);
+        return;
+    }
+
+    enTimerStatus = MN_CALL_GetTimerStatus(TAF_CALL_TID_WAIT_ECALL_REDAIL_INTERVAL);
+
+    if ((MN_CALL_TIMER_STATUS_RUNING != MN_CALL_GetTimerStatus(TAF_CALL_TID_WAIT_ECALL_REDIAL_PERIOD))
+     && (MN_CALL_TIMER_STATUS_RUNING != enTimerStatus))
+    {
+        /* 如果定时器都不在运行，应该是在eCall通话中，MSD传输成功，更新状态 */
+        TAF_CALL_SetEcallMsdTransStatus(VC_CALL_ECALL_MSD_TRANSMITTING_SUCCESS);
+        return;
+    }
+
+    ucCallId = pstBufferdMsg->stBufferedSetupMsg.ucCallId;
+
+    /* 1. 本场景是处理信令连接先释放完成，而后才收到MSD数据传输成功的状态指示
+     *    此时需要停止重拨定时器，释放资源，上报呼叫释放完成
+     */
+    MN_CALL_GetCallState(ucCallId, &enCallState, &enMptyState);
+
+    /* 在dialing状态且间隔定时器在运行时，请求消息还未发送给CC，因此本地释放呼叫就可以了 */
+    if ((MN_CALL_TIMER_STATUS_RUNING == TAF_CALL_GetRedialIntervalTimerStatus(ucCallId))
+     && (MN_CALL_S_DIALING           == enCallState))
+    {
+        /* 上报呼叫释放事件 */
+        MN_CALL_ReportEvent(ucCallId, MN_CALL_EVT_RELEASED);
+
+        MN_CALL_ReportEvent(ucCallId, MN_CALL_EVT_ALL_RELEASED);
+
+        TAF_CALL_ProcCallStatusFail(ucCallId, enCallState);
+
+        MN_CALL_FreeCallId(ucCallId);
+    }
+    else
+    {
+        /*挂断指定的呼叫*/
+        (VOS_VOID)MN_CALL_SendCcDiscReq(ucCallId, MN_CALL_NORMAL_CALL_CLEARING);
+
+        /* 记录主动挂断的原因值 */
+        MN_CALL_UpdateCcCause(ucCallId, MN_CALL_NORMAL_CALL_CLEARING);
+
+        /* 记录呼叫挂断的方向 */
+        MN_CALL_UpdateDiscCallDir(ucCallId, VOS_TRUE);
+    }
+
+    /* 清除MO呼叫重拨缓存 */
+    MN_CALL_ClearBufferedMsg();
+
+    /* 停止所有eCall重拨时长定时器 */
+    TAF_CALL_StopAllRedialTimers(ucCallId);
+
+    /* 呼叫释放，更新MSD状态到初始态 */
+    TAF_CALL_SetEcallMsdTransStatus(VC_CALL_ECALL_TRANS_STATUS_BUTT);
+}
+
+
+VOS_VOID TAF_CALL_RcvVcEcallTransStatusNtf(VC_CALL_ECALL_TRANS_STATUS_NTF_STRU *pstEcallTransStatusNtf)
+{
+
+
+    switch (pstEcallTransStatusNtf->enEcallTransStatus)
+    {
+        case VC_CALL_ECALL_MSD_TRANSMITTING_SUCCESS:
+            TAF_CALL_ProcEcallMsdTransSuccess();
+            break;
+
+        case VC_CALL_ECALL_MSD_TRANSMITTING_FAIL:
+        case VC_CALL_ECALL_MSD_TRANSMITTING_START:
+        case VC_CALL_ECALL_PSAP_MSD_REQUIRETRANSMITTING:
+            /* 更新eCall MSD数据传输状态 */
+            TAF_CALL_SetEcallMsdTransStatus(pstEcallTransStatusNtf->enEcallTransStatus);
+            break;
+
+        default:
+            /* 非法值，更新到butt */
+            TAF_CALL_SetEcallMsdTransStatus(VC_CALL_ECALL_TRANS_STATUS_BUTT);
+            break;
+    }
+}
+#endif
+
+
+TAF_CS_CAUSE_ENUM_UINT32 TAF_CALL_ConvertVcCauseToTafCsCause(
+    APP_VC_OPEN_CHANNEL_FAIL_CAUSE_ENUM_UINT32 enVcCause
+)
+{
+    TAF_CS_CAUSE_ENUM_UINT32            enTafCause;
+    VOS_UINT32                          i;
+
+    enTafCause  = TAF_CS_CAUSE_CC_NW_NORMAL_CALL_CLEARING;
+
+    for (i = 0; i < (sizeof(g_astVcCauseToTafCsCause) / sizeof(g_astVcCauseToTafCsCause[0])); i++)
+    {
+        if (enVcCause == g_astVcCauseToTafCsCause[i].enVcCause)
+        {
+            enTafCause = g_astVcCauseToTafCsCause[i].enTafCsCasue;
+        }
+    }
+
+    return enTafCause;
+
+}
+
+/*lint -restore */
+
+
+#ifdef __cplusplus
+#if __cplusplus
+}
+#endif /* __cpluscplus */
+#endif /* __cpluscplus */
+
+
+

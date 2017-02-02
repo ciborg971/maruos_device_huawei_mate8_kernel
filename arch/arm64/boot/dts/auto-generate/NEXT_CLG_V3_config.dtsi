@@ -1,0 +1,133 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "NEXT_TUCL_V1_config.dtsi"
+
+/ {
+	hisi,boardid = <3 5 1 0>;
+	hisi,boardname = "NEXT_CLG_V3";
+	hisi,modem_id = <0x3C000400>;
+
+	fastboot {
+		/*motor*/
+		motor-gpio_en = <114>;
+		motor-gpio_cfg_addr = <0xE896C9C8>;
+	};
+	huawei,hisi_isp100{
+		pinctrl-0 = <&gpio122_pmx_func
+                 &gpio017_pmx_func
+                 &gpio018_pmx_func
+                 &gpio022_pmx_func
+                 &gpio023_pmx_func
+                 &gpio025_pmx_func
+                 &gpio026_pmx_func
+                 &gpio027_pmx_func
+                 &gpio028_pmx_func
+                 &gpio000_hi6402_pinctrl_func
+                 &gpio003_hi6402_pinctrl_func
+                 //&gpio196_pmx_func
+                 &gpio220_pmx_func
+                 &gpio122_cfg_func
+                 &gpio017_cfg_func
+                 &gpio018_cfg_func
+                 &gpio022_cfg_func
+                 &gpio023_cfg_func
+                 &gpio025_cfg_func
+                 &gpio026_cfg_func
+                 &gpio027_cfg_func
+                 &gpio028_cfg_func
+                 //&gpio193_cfg_func
+                 //&gpio196_cfg_func
+                 &gpio220_cfg_func
+			     >;
+		pinctrl-1 = <&gpio122_pmx_idle
+                 &gpio017_pmx_idle
+                 &gpio018_pmx_idle
+                 &gpio022_pmx_idle
+                 &gpio023_pmx_idle
+                 &gpio025_pmx_idle
+                 &gpio026_pmx_idle
+                 &gpio027_pmx_idle
+                 &gpio028_pmx_idle
+                 &gpio000_hi6402_pinctrl_idle
+                 &gpio003_hi6402_pinctrl_idle
+                 //&gpio196_pmx_idle
+                 &gpio220_pmx_idle
+                 &gpio122_cfg_idle
+                 &gpio017_cfg_idle
+                 &gpio018_cfg_idle
+                 &gpio022_cfg_idle
+                 &gpio023_cfg_idle
+                 &gpio025_cfg_idle
+                 &gpio026_cfg_idle
+                 &gpio027_cfg_idle
+                 &gpio028_cfg_idle
+                 //&gpio193_cfg_idle
+                 //&gpio196_cfg_idle
+                 &gpio220_cfg_idle
+			     >;
+	};
+
+	huawei,imx179{
+		gpios = <&gpio2 1 0 &gpio2 2 0 &gpio15 2 0 &gpio28 3 0>;
+	};
+
+
+
+	amba {
+		i2c4: i2c@FDF0D000 {
+			huawei,lm3646@67{
+				pinctrl-0 = <&gpio030_hi6402_pinctrl_func>;
+				pinctrl-1 = <&gpio030_hi6402_pinctrl_idle>;
+				huawei,flash-pin = <254 999 999>;
+			};
+			ti-drv2605@5a {
+				gpio-enable = <&gpio14 2 0>;
+			};
+			pn547_nfc:nfc@28 {
+				nfc_chip_type = "pn548";
+				nfc_single_channel = "true";
+			};
+		};
+
+		spi0: spi@ffd70000 {
+				fingerprint: fingerprint@2 {
+						fingerprint,reset_gpio = <112>;
+
+						pinctrl-0 = <&gpio112_pmx_func &gpio004_hi6402_pinctrl_func &gpio112_cfg_func>;
+						pinctrl-1 = <&gpio112_pmx_idle &gpio004_hi6402_pinctrl_idle &gpio112_cfg_idle>;
+				};
+		};
+
+		serial1: uart@fdf00000 {
+			pinctrl-0 = <>;
+			pinctrl-1 = <>;
+			dmas;
+			dma-names;
+			clock-rate = <0 160000000>;
+			status = "ok";
+			reset-enable-flag = <1>;
+		};
+	};
+
+	huawei,lcd_panel {
+		support_lcd_type = "JDI_NT35695_CUT3_1_LCD","LG_ER69006A_LCD";
+	};
+
+	panel_lcd_jdi_NT35695_cut2_5 {
+		lcd-bl-type = <4>;
+	};
+
+	panel_lcd_jdi_NT35695_cut3_1 {
+		lcd-bl-type = <4>;
+	};
+
+	panel_lcd_lg_eR69006A {
+		lcd-bl-type = <4>;
+	};
+};

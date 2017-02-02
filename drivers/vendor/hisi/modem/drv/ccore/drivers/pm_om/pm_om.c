@@ -1,0 +1,1 @@
+../../../acore/kernel/drivers/hisi/modem/drv/pm_om/pm_om.c

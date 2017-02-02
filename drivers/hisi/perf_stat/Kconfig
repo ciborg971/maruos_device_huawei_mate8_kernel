@@ -1,0 +1,5 @@
+config HISI_PERF_STAT
+	bool "Hisilicon perf_stat driver"
+	default n
+	help
+	Hi3650 perf_stat driver support

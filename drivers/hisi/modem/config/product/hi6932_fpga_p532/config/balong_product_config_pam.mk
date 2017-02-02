@@ -1,0 +1,9 @@
+# MD5: cfa50d5ae9cbc7b5f8c1878c60aa6352
+CFG_FEATURE_BBP_MASTER                          := FEATURE_ON
+CFG_BBP_MASTER_INT_MODE                         := FEATURE_ON
+CFG_FEATURE_BBP_MASTER_CHAN_EXTEND              := FEATURE_OFF
+CFG_FEATURE_GUC_BBP_TRIG                        := FEATURE_OFF
+CFG_FEATURE_MULTI_FS_PARTITION                  := FEATURE_OFF
+CFG_FEATURE_POWER_TIMER                         := FEATURE_OFF
+CFG_FEATURE_UE_UICC_MULTI_APP_SUPPORT           := FEATURE_ON
+CFG_FEATURE_VSIM                                := FEATURE_ON

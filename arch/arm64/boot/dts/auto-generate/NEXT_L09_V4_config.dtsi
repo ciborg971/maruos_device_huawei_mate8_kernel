@@ -1,0 +1,135 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "NEXT_L09_V1_config.dtsi"
+
+/ {
+	hisi,boardid = <3 5 4 1>;
+	hisi,boardname = "NEXT_L09_V4";
+	hisi,modem_id = <0x3C001400>;
+
+	huawei,lcd_panel {
+		gpio_id = <214>;
+		gpio_cfg_addr = <0xFFF11898>;
+	};
+
+
+	huawei,hisi_isp100{
+		pinctrl-0 = <&gpio122_pmx_func
+                 &gpio017_pmx_func
+                 &gpio018_pmx_func
+                 &gpio022_pmx_func
+                 &gpio023_pmx_func
+                 &gpio025_pmx_func
+                 &gpio026_pmx_func
+                 &gpio027_pmx_func
+                 &gpio028_pmx_func
+                 &gpio000_hi6402_pinctrl_func
+                 &gpio003_hi6402_pinctrl_func
+                 &gpio024_hi6402_pinctrl_func
+                 //&gpio196_pmx_func
+                 &gpio220_pmx_func
+                 &gpio122_cfg_func
+                 &gpio017_cfg_func
+                 &gpio018_cfg_func
+                 &gpio022_cfg_func
+                 &gpio023_cfg_func
+                 &gpio025_cfg_func
+                 &gpio026_cfg_func
+                 &gpio027_cfg_func
+                 &gpio028_cfg_func
+                 //&gpio193_cfg_func
+                 //&gpio196_cfg_func
+                 &gpio220_cfg_func
+                 >;
+		pinctrl-1 = <&gpio122_pmx_idle
+                 &gpio017_pmx_idle
+                 &gpio018_pmx_idle
+                 &gpio022_pmx_idle
+                 &gpio023_pmx_idle
+                 &gpio025_pmx_idle
+                 &gpio026_pmx_idle
+                 &gpio027_pmx_idle
+                 &gpio028_pmx_idle
+                 &gpio000_hi6402_pinctrl_idle
+                 &gpio003_hi6402_pinctrl_idle
+                 &gpio024_hi6402_pinctrl_idle
+                 //&gpio196_pmx_idle
+                 &gpio220_pmx_idle
+                 &gpio122_cfg_idle
+                 &gpio017_cfg_idle
+                 &gpio018_cfg_idle
+                 &gpio022_cfg_idle
+                 &gpio023_cfg_idle
+                 &gpio025_cfg_idle
+                 &gpio026_cfg_idle
+                 &gpio027_cfg_idle
+                 &gpio028_cfg_idle
+                 //&gpio193_cfg_idle
+                 //&gpio196_cfg_idle
+                 &gpio220_cfg_idle
+                 >;
+	};
+
+	huawei,imx298{
+        gpios = <&gpio2 2 0 &gpio2 1 0 &gpio15 2 0 &gpio28 0 0 &gpio3 6 0 &gpio31 0 0>;
+        huawei,gpio-ctrl-types = "reset", "suspend", "ldo_en", "fsin", "ois", "ois2";
+	};
+
+
+	
+	panel_lcd_jdi_NT35695_cut2_5 {
+		lcd-bl-type = <4>;
+		//gpio_lcd_n5v5_enable, gpio_lcd_bl_enable, gpio_lcd_p5v5_enable, gpio_lcd_reset, gpio_lcd_id0
+		gpios = <&gpio6 4 0>, <&gpio6 3 0>,  <&gpio6 5 0>, <&gpio2 4 0>, <&gpio26 6 0>;
+		gpio_nums = <52 51 53 20 21 214 193>;    //gpio_193, tp reset
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio021_pmx_func &gpio021_cfg_func &gpio214_cfg_func &gpio020_cfg_func &gpio051_cfg_func &gpio052_cfg_func &gpio053_cfg_func>;
+		pinctrl-1 = <&gpio021_pmx_idle &gpio021_cfg_idle &gpio214_cfg_idle &gpio020_cfg_idle &gpio051_cfg_idle &gpio052_cfg_idle &gpio053_cfg_idle>;
+	};
+
+	panel_lcd_jdi_NT35695_cut3_1 {
+		lcd-bl-type = <4>;
+		//gpio_lcd_n5v5_enable, gpio_lcd_bl_enable, gpio_lcd_p5v5_enable, gpio_lcd_reset, gpio_lcd_id0
+		gpios = <&gpio6 4 0>, <&gpio6 3 0>,  <&gpio6 5 0>, <&gpio2 4 0>, <&gpio26 6 0>;
+		gpio_nums = <52 51 53 20 21 214 193>;    //gpio_193, tp reset
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio021_pmx_func &gpio021_cfg_func &gpio214_cfg_func &gpio020_cfg_func &gpio051_cfg_func &gpio052_cfg_func &gpio053_cfg_func>;
+		pinctrl-1 = <&gpio021_pmx_idle &gpio021_cfg_idle &gpio214_cfg_idle &gpio020_cfg_idle &gpio051_cfg_idle &gpio052_cfg_idle &gpio053_cfg_idle>;
+	};
+
+	panel_lcd_lg_eR69006A {
+		lcd-bl-type = <4>;
+		//gpio_lcd_n5v5_enable, gpio_lcd_bl_enable, gpio_lcd_p5v5_enable, gpio_lcd_reset, gpio_lcd_id0
+		gpios = <&gpio6 4 0>, <&gpio6 3 0>,  <&gpio6 5 0>, <&gpio2 4 0>, <&gpio26 6 0>;
+		gpio_nums = <52 51 53 20 21 214 193>;    //gpio_193, tp reset
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio021_pmx_func &gpio021_cfg_func &gpio214_cfg_func &gpio020_cfg_func &gpio051_cfg_func &gpio052_cfg_func &gpio053_cfg_func>;
+		pinctrl-1 = <&gpio021_pmx_idle &gpio021_cfg_idle &gpio214_cfg_idle &gpio020_cfg_idle &gpio051_cfg_idle &gpio052_cfg_idle &gpio053_cfg_idle>;
+	};
+	sensorhub{
+		als_sensor:light{
+			als1{
+				als_phone_version = <11>;
+			};
+		};
+		mag_sensor:compass{
+			mag1{
+				softiron_parameter = <12 39 242 254 8 00 242 254 218 40 241 255 8 00 241 255 246 39 0 0 0 0 0 0 0 0 0>;
+			};
+		};
+	};
+
+	amba {
+		spi0: spi@ffd70000 {
+			fingerprint: fingerprint@2 {
+					fingerprint,cs_gpio = <15>;
+			};
+		};
+	};
+};
